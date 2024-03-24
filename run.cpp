@@ -175,6 +175,47 @@ TEST (DoublyLinkedList, TypeString)
 
 }
 
+TEST (DoublyLinkedList, TypeChar)
+{
+  DoublyLinkedList<char> list;
+  EXPECT_THROW(list.front(), std::runtime_error);
+  list.AddTo(1, 'a');
+  list.AddTo(1, 'b');
+  EXPECT_FALSE(list.isEmpty());
+  EXPECT_EQ('b', list.front());
+  EXPECT_EQ('a', list.back());
+
+  list.AddTo(3,'c');
+  list.AddTo(4,'d');
+  EXPECT_FALSE(list.AddTo(6,'c'));
+  list.AddToTail('c');
+  list.AddToHead('a');
+
+  EXPECT_TRUE(list.removeNode('a'));
+  EXPECT_FALSE(list.findData('a'));
+  EXPECT_EQ('d', list.findIndexData(3));  
+
+}
+
+TEST (DoublyLinkedList, TypeFloat)
+{
+  DoublyLinkedList<float> list;
+  list.AddToTail(1.23);
+  list.AddToHead(4.26);
+  
+  EXPECT_FLOAT_EQ(4.26, list.front());
+  EXPECT_TRUE(list.removeNode(4.26));
+  EXPECT_FLOAT_EQ(1.23, list.findIndexData(1));
+  EXPECT_FLOAT_EQ(1.23, list.front());
+  EXPECT_FLOAT_EQ(1.23, list.back());
+  EXPECT_THROW(list.findIndexData(2), std::runtime_error);
+  EXPECT_FALSE(list.removeNodefrom(2));
+  EXPECT_FALSE(list.removeNode(4.26));
+  EXPECT_TRUE(list.removeNode(1.23));
+  EXPECT_TRUE(list.isEmpty());
+
+}
+
 int main() 
 {
   testing::InitGoogleTest();
