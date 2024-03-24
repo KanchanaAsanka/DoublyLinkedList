@@ -154,6 +154,26 @@ DoublyLinkedList<int> list;
  EXPECT_FALSE(list.isEmpty());
 }
 
+TEST (DoublyLinkedList, TypeString)
+{
+  DoublyLinkedList<string> list;
+
+  list.AddToHead("First");
+  list.AddToTail("last");
+  EXPECT_FALSE(list.isEmpty());
+  EXPECT_EQ("First", list.front());
+  EXPECT_EQ("last", list.back());
+  EXPECT_TRUE(list.findData("First"));
+  EXPECT_FALSE(list.findData("first"));
+  EXPECT_EQ("last", list.findIndexData(2));
+  EXPECT_THROW(list.findIndexData(3), std::runtime_error);
+  list.AddTo(2, "testing data");
+  list.AddTo(1,"testing");
+  EXPECT_EQ("testing", list.front());
+  EXPECT_TRUE(list.removeNode("First"));
+  EXPECT_FALSE(list.findData("First"));
+
+}
 
 int main() 
 {
